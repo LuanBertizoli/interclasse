@@ -5,7 +5,9 @@ const Equipe = require('./Equipe');
 const Partida = require('./Partida');
 
 class CadastroFactory {
+
     static criarTurma(id, nome) {
+
         const turma = new Turma(id, nome);
 
         if (!turma.nome) {
@@ -16,7 +18,12 @@ class CadastroFactory {
     }
 
     static criarAtleta(id, nome, idTurma) {
-        const atleta = new Atleta(id, nome, idTurma);
+
+        const atleta = new Atleta(
+            id,
+            nome,
+            idTurma
+        );
 
         if (!atleta.nome) {
             throw new Error('Nome de atleta inválido.');
@@ -30,6 +37,7 @@ class CadastroFactory {
     }
 
     static criarEquipe(id, idTurma, modalidade) {
+
         const equipe = new Equipe(
             id,
             idTurma,
@@ -55,6 +63,7 @@ class CadastroFactory {
         numeroCredencial,
         anosExperiencia
     ) {
+
         const arbitro = new Arbitro(
             id,
             nome,
@@ -79,20 +88,39 @@ class CadastroFactory {
 
     static criarPartida(
         id,
-        idA,
-        idB,
+        idEquipeA,
+        idEquipeB,
         modalidade,
         golsA,
         golsB
     ) {
-        return new Partida(
+
+        const partida = new Partida(
             id,
-            idA,
-            idB,
+            idEquipeA,
+            idEquipeB,
             modalidade,
             golsA,
             golsB
         );
+
+        if (partida.idEquipeA === undefined) {
+            throw new Error('Equipe A inválida.');
+        }
+
+        if (partida.idEquipeB === undefined) {
+            throw new Error('Equipe B inválida.');
+        }
+
+        if (partida.placar.golsA === undefined) {
+            throw new Error('Gols da equipe A inválidos.');
+        }
+
+        if (partida.placar.golsB === undefined) {
+            throw new Error('Gols da equipe B inválidos.');
+        }
+
+        return partida;
     }
 }
 

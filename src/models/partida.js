@@ -2,15 +2,15 @@ const Placar = require('./Placar');
 
 class Partida {
     #id;
-    #idA;
-    #idB;
+    #idEquipeA;
+    #idEquipeB;
     #modalidade;
     #placar;
 
-    constructor(id, idA, idB, modalidade, golsA, golsB) {
+    constructor(id, idEquipeA, idEquipeB, modalidade, golsA, golsB) {
         this.#id = id;
-        this.#idA = idA;
-        this.#idB = idB;
+        this.#idEquipeA = idEquipeA;
+        this.#idEquipeB = idEquipeB;
         this.#modalidade = modalidade;
         this.#placar = new Placar(golsA, golsB);
     }
@@ -19,21 +19,49 @@ class Partida {
         return this.#id;
     }
 
-    get idA() {
-        return this.#idA;
+    set idEquipeA(valor) {
+        if (!Number.isInteger(valor) || valor <= 0) {
+            console.log('[ERRO] ID da equipe A inválido. Acesso negado ');
+            return;
+
+        }
+        this.#idEquipeA = valor;
+    }
+    get idEquipeA() {
+        return this.#idEquipeA;
     }
 
-    get idB() {
-        return this.#idB;
+
+    set idEquipeB(valor) {
+        if (!Number.isInteger(valor) || valor <= 0) {
+            console.log('[ERRO] ID da equipe B inválido. Acesso negado ');
+            return;
+
+        }
+        this.#idEquipeB = valor;
+    }
+    get idEquipeB() {
+        return this.#idEquipeB;
     }
 
-    get modalidade() {
-        return this.#modalidade;
+    set modalidade(valor) {
+        if (!valor) {
+            console.log('[ERRO] Modalidade inválida');
+            return;
+        }
+        this.#modalidade = valor;
     }
 
-    get placar() {
+    exibir(nomeEquipeA, nomeEquipeB) {
+        console.log(`ID: ${this.id} | ${nomeEquipeA} ${this.placar.golsA} X ${this.placar.golsB} ${nomeEquipeB} | ${this.modalidade}`);
+    }
+
+    get Placar() {
         return this.#placar;
     }
-}
 
+    exibir(nomeEquipeA, nomeEquipeB) {
+        console.log(`ID: ${this.id} | ${nomeEquipeA} ${this.Placar.golsA} x ${this.Placar.golsB}${nomeEquipeB} | ${this.modalidade}`);
+    }
+}
 module.exports = Partida;
