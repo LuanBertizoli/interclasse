@@ -27,5 +27,6 @@ class Turma {
         console.log(`ID: ${this.id} | Sala: ${this.nome}`);
     }
 }
-
 module.exports = Turma;
+
+

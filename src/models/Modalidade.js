@@ -5,7 +5,5 @@ const Modalidade = Object.freeze({
     BASQUETE_MASCULINO: "Basquete Masculino",
     BASQUETE_FEMININO: "Basquete Feminino",
     HANDEBOL_MISTO: "Handebol Misto"
-    
 });
-
 module.exports = Modalidade;
