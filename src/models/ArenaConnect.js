@@ -337,20 +337,60 @@ class ArenaConnect {
             );
         }
     }
-
-    registrarPartida(idEquipeA, idEquipeB, golsA, golsB) {
-        const equipeA = this.buscarEquipeOuFalhar(idEquipeA);
-        const equipeB = this.buscarEquipeOuFalhar(idEquipeB);
-
-        if (equipeA.modalidade !== equipeB.modalidade) {
+    
+registrarPartida() {
+    try {
+        if (this.equipes.length < 2) {
             throw new Error(
-                "as equipes não jogam a mesma modalidade!"
+                "Cadastre pelo menos duas equipes primeiro."
             );
         }
+
+        this.listarEquipes();
+
+        const idEquipeA = Number(
+            prompt("Digite o ID da equipe A: ")
+        );
+
+        const idEquipeB = Number(
+            prompt("Digite o ID da equipe B: ")
+        );
+
+        const golsA = Number(
+            prompt("Digite os gols da equipe A: ")
+        );
+
+        const golsB = Number(
+            prompt("Digite os gols da equipe B: ")
+        );
+
+        if (
+            !Number.isInteger(idEquipeA) ||
+            !Number.isInteger(idEquipeB) ||
+            !Number.isInteger(golsA) ||
+            !Number.isInteger(golsB) ||
+            idEquipeA <= 0 ||
+            idEquipeB <= 0 ||
+            golsA < 0 ||
+            golsB < 0
+        ) {
+            throw new Error(
+                "Digite IDs válidos e gols iguais ou maiores que zero."
+            );
+        }
+
+        const equipeA = this.buscarEquipeOuFalhar(idEquipeA);
+        const equipeB = this.buscarEquipeOuFalhar(idEquipeB);
 
         if (equipeA.id === equipeB.id) {
             throw new Error(
                 "Uma equipe não pode jogar contra ela mesma!"
+            );
+        }
+
+        if (equipeA.modalidade !== equipeB.modalidade) {
+            throw new Error(
+                "As equipes precisam jogar a mesma modalidade!"
             );
         }
 
@@ -366,13 +406,22 @@ class ArenaConnect {
         this.idPartidaContador++;
         this.partidas.push(partida);
 
+        console.log("\nPartida registrada com sucesso!");
+        console.log(`${this.#rotularEquipe(idEquipeA)}: ${golsA} gols`);
+        console.log(`${this.#rotularEquipe(idEquipeB)}: ${golsB} gols`);
+
         return {
             partida,
             nomeEquipeA: this.#rotularEquipe(idEquipeA),
             nomeEquipeB: this.#rotularEquipe(idEquipeB)
         };
-    }
 
+    } catch (erro) {
+        console.log(`Erro ao registrar partida: ${erro.message}`);
+    }
+}
+
+    
     #rotularEquipe(idEquipe) {
         const equipe = this.equipes.find(
             e => e.id === idEquipe

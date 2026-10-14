@@ -1,30 +1,27 @@
+
 class Placar {
     #golsA;
     #golsB;
 
-    constructor(golsA, golsB){
+    constructor(golsA, golsB) {
         this.golsA = golsA;
         this.golsB = golsB;
     }
 
-    set golsA(valor){
-        if (!Number.isInteger(valor) || valor < 0){
+    set golsA(valor) {
+        if (!Number.isInteger(valor) || valor < 0) {
             console.log('[ERRO] Gols do time A inválidos. Acesso negado');
-        return;
-
-           }
-           this.#golsA = valor;
-        } 
-        get golsA(){
-            return this.#golsA;
+            return;
         }
+
+        this.#golsA = valor;
     }
 
+    get golsA() {
+        return this.#golsA;
+    }
 
-   class Placar {
-    #golsB;
-
-    set golsB(valor) {  
+    set golsB(valor) {
         if (!Number.isInteger(valor) || valor < 0) {
             console.log('[ERRO] Gols do time B inválidos. Acesso negado');
             return;
@@ -37,14 +34,13 @@ class Placar {
         return this.#golsB;
     }
 
-// 'A' | 'B' | 'EMPATE'
-vencedor(){
-    if (this.#golsA > this.#golsB) return 'A';
-    if (this.#golsA < this.#golsB) return 'B';
-    return 'EMPATE';
+    // Retorna A, B ou EMPATE
+    vencedor() {
+        if (this.#golsA > this.#golsB) return 'A';
+        if (this.#golsA < this.#golsB) return 'B';
 
+        return 'EMPATE';
+    }
 }
 
-   }
-
-   module.exports = Placar;
+module.exports = Placar;
