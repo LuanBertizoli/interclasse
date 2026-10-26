@@ -1,35 +1,25 @@
-const Partida = require('../Partida');
-const { mostrarErroCadastro } = require('./AtletaViews');
-
-const prompt = require('prompt-sync') ();
+const prompt = require('prompt-sync')();
 
 const PartidaView = {
-    perguntarIdEquipe(mensagem){
+    perguntarIdEquipe(mensagem) {
         return parseInt(prompt(mensagem));
     },
-
-    
-    perguntarGols(mensagem){
+    perguntarGols(mensagem) {
         return parseInt(prompt(mensagem));
     },
-
-
-    mostrarRegistrada(NomeA, golsA, NomeB, golsB){
-        console.log(`[SUCESSO] Partida registrada: ${nomeA} ${golsA} x ${golsB}`)
+    mostrarRegistrada(nomeA, golsA, nomeB, golsB) {
+        console.log(`[SUCESSO] Partida registrada: ${nomeA} ${golsA} x ${golsB} ${nomeB}!`);
     },
-
-
-    mostrarErroCadastro(mensagem){
-        console.log(` [ERRO] não foi possivel cadastraro atleta: ${messagem}`)
+    mostrarErroCadastro(mensagem) {
+        console.log(`[ERRO] Não foi possível registrar a partida: ${mensagem}`);
     },
-
-
-    listarPartidas(lista){
+    listarPartidas(lista) {
         console.log("\n=== LISTA DE PARTIDAS ===");
-        if (lista.lenght === 0) return console.log("nenhuma partida registrada!");
-            lista.forEach(({ Partida, nomeEquipeA, nomeEquipeB }) => Partida.exibir(nomeEquipeA, nomeEquipeB)
-        )}
+        if (lista.length === 0) return console.log("Nenhuma partida registrada!");
+        lista.forEach(({ partida, nomeEquipeA, nomeEquipeB }) => {
+            partida.exibir(nomeEquipeA, nomeEquipeB)
+        });
     }
-
+}
 
 module.exports = PartidaView;

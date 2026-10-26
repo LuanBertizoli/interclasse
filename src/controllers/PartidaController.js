@@ -1,24 +1,23 @@
-const PartidaView = require('../views/PartidaViews');
+const PartidaView = require('../views/PartidaView');
 
 const PartidaController = {
     registrarPartida(sistema){
-        sistema.listarEquipe();
+        sistema.listarEquipes();
         try{
             const idEquipeA = PartidaView.perguntarIdEquipe("Digite ID equipe A: ");
-            const idEquipeA = PartidaView.perguntarIdEquipe("Digite ID equipe B: ");
-            const golsB = PartidaView.perguntarGols("Informe gols da Equipe A: ");
-            const golsA = PartidaView.perguntarGols("Informe gols da Equipe B: ");
-            const { idEquipeA, equipeB} = sistema.registrarPartida(idEquipeA, idEquipeB, golsA, golsB)
-            PartidaView.mostrarRegistrada(idEquipeA.modalidade, equipeB.modalidade, golsA, golsB)
-
+            const idEquipeB = PartidaView.perguntarIdEquipe("Digite ID equipe B: ");
+            const golsA = PartidaView.perguntarGols("Informe gols da Equipe A: ");
+            const golsB = PartidaView.perguntarGols("Informe gols da Equipe B: ");
+           
+            const { nomeEquipeA, nomeEquipeB } = sistema.registrarPartida(idEquipeA, idEquipeB, golsA, golsB);
+            PartidaView.mostrarRegistrada(nomeEquipeA, golsA, nomeEquipeB, golsB);
         } catch (erro) {
-            PartidaView.mostrarErroCadastro(erro.menssage);
-
+            PartidaView.mostrarErroCadastro(erro.message);
         }
-
     },
     listar(sistema){
         PartidaView.listarPartidas(sistema.listarPartidas());
-
     }
 }
+
+module.exports = PartidaController;

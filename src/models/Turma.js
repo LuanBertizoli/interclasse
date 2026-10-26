@@ -11,12 +11,12 @@ class Turma {
         return this.#id;
     }
 
-    set nome(nome) {
-        if (!nome || nome.length < 2) {
-            console.log("Nome de turma inválido.");
+    set nome(novoNome) {
+        if (!novoNome || novoNome.length < 2) {
+            console.log('[ERRO] Nome de turma inválido. Acesso negado.');
             return;
         }
-        this.#nome = nome.toUpperCase();
+        this.#nome = novoNome.toUpperCase();
     }
 
     get nome() {
@@ -27,6 +27,5 @@ class Turma {
         console.log(`ID: ${this.id} | Sala: ${this.nome}`);
     }
 }
+
 module.exports = Turma;
-
-
