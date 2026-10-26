@@ -54,7 +54,19 @@ class ArenaConnect {
 
    
 removerTurma(idTurma) {
+    const turma = this.buscarTurmaOuFalhar(idTurma);
+    if(this.atletas.some(a => a.idTurma === idTurma)){
+        throw new Error(`a turma ${turma.nome} ainda tem atletas.
+            Remova ou mude os atletas antes.`);
+    }
+
+    if(this.equipes.some(a => a.idTurma === idTurma)){
+        throw new Error(`a turma ${turma.nome} ainda tem equipes.
+            Remova as equipes antes.`);
+    }
     
+    this.turmas = this.turmas.filter(t => t.id !== turma.id)
+    return turma;
 }
 
 

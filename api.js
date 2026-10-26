@@ -40,6 +40,54 @@ app.get('/classificacao', (req, res) => {
     res.json(sistema.classificacaoGeral())
 })
 
+function exixte(res, buscar){
+    try{
+        buscar();
+        return true;
+    } catch (erro) {
+        res.status(404).json({ erro: erro.message})
+        return false;
+    }
+}
+
+
+app.post('/turmas',(req, res) => {
+    const { nome } = req.body ?? {};
+    try{
+        const turma = sistema.adicionarTurma(nome);
+        sistema.salvarEstado();
+        res.status(201).json(sistema.dadosDaTurma(turma.id));
+    } catch (erro) {
+        res.status(400).json({ erro: erro.message });
+    }
+})
+
+
+app.put('/turmas/:id', (req, res) => {
+    const id = number(req.params.id);
+    if(!existe(res, () => sistema.buscarTurmaOuFalhar(id))) return;
+    const { nome } = req.body ?? {};
+    try {
+        const turma = sistema.adicionarTurma(id, nome);
+        res.status(201).json(sistema.dadosDaTurma(turma.id));
+    } catch (erro){
+        res.status(400).json({ erro: erro.mensage});
+    }
+})
+
+app.delete('/turmas/:id', (req, res) => {
+    const id = Number(req.params.id);
+    if (!existe(res, () => sistema.buscarTurmaOuFalhar(id))) return;
+    try {
+        sistema.removerTurma(id);
+        sistema.salvarEstado();
+        res.status(204).end();
+    } catch (erro) {
+        res.status(409).json({ erro: erro.message });
+    }
+});
+
+
 
 app.listen(PORT, () => {
     console.log(`Arena-Connect API em http://localhost:${PORT}`);
